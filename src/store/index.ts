@@ -1,8 +1,17 @@
 import { baseLayout, layoutConfig as _layoutConfig, type Widget, appConfig } from '../config'
 
-export const layout = ref<Widget>([])
+export const layout = ref()
 export const layoutConfig = ref(_layoutConfig)
 export const config = ref(appConfig)
+export const pageType = ref('')
+
+export const editWidget = ref<Widget>({
+  id: '',
+  icon: '',
+  name: '',
+  url: '',
+})
+
 
 const LS_KEYS = {
   LAYOUT: 'w-tab_layout'
@@ -33,4 +42,11 @@ export function initLayout() {
 
   saveToStorage(LS_KEYS.LAYOUT, baseLayout)
   layout.value = baseLayout
+}
+
+/**
+ * 删除小部件
+ */
+export function delLayout(id: string) {
+  saveLayout(layout.value.filter((item: Widget) => item.id !== id))
 }

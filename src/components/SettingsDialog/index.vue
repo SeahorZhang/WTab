@@ -11,8 +11,10 @@ const currentPage = shallowRef(menus[0] || { title: '关于', type: 'about', com
 
 <template>
   <Dialog>
-    <div class="mx-10 flex w-250 overflow-hidden rounded-xl bg-white shadow-xl sm:h-150">
-      <div class="basis-2/7 space-y-2 overflow-y-auto border-r border-gray-200 px-4 py-6">
+    <div
+      class="mx-10 flex h-150 w-250 divide-x divide-gray-200 overflow-hidden rounded-xl bg-white shadow-xl"
+    >
+      <div class="basis-2/7 space-y-2 overflow-y-auto px-4 py-6">
         <div
           v-for="(item, i) in menus"
           :key="i"
@@ -26,7 +28,7 @@ const currentPage = shallowRef(menus[0] || { title: '关于', type: 'about', com
         </div>
       </div>
       <div class="flex flex-1 basis-5/7 flex-col overflow-hidden">
-        <div class="flex h-14 shrink-0 items-center justify-between px-3 pl-6 sm:pr-2">
+        <div class="flex h-14 shrink-0 items-center justify-between px-3 pr-2 pl-6">
           <h3 class="text-lg leading-6 font-medium text-gray-900">
             {{ currentPage.title }}
           </h3>

@@ -14,6 +14,13 @@ export const appConfig = {
 }
 export type AppConfig = typeof appConfig
 
+
+const widget = {
+  "icon": "",
+  "id": "",
+  "name": "",
+  "url": ""
+}
 export const baseLayout = [
   {
     "icon": "https://pub-fe2c8d6bb5f843578e818856487a2592.r2.dev/45e248c502e751e9f65d9c9e8080f4c9.webp",
@@ -61,5 +68,4 @@ export const baseLayout = [
     "id": "fV26gHl2PNq3xtJFW94Sh", "name": "概览 - MetaCubeXD",
     "url": "http://192.168.100.1:9090/ui/metacubexd/#/overview"
   }]
-
-export type Widget = typeof baseLayout
+export type Widget = typeof widget

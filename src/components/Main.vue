@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { saveLayout } from '@/store/index'
 import WidgetsContainer from '@/components/WidgetsContainer.vue'
-// import IconWidget from '@/views/iconWidget/index.vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { layout, layoutConfig } from '@/store'
 </script>
