@@ -8,3 +8,10 @@ export interface ContextmenuItems {
   settings: Item[][]
   widget: Item[][]
 }
+
+export interface ContextmenuTs {
+  type: "desktop" | "widget" | "settings"
+  x: number
+  y: number
+  visible: boolean
+}

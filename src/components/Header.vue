@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import SettingsDialog from './SettingsDialog/index.vue'
-
-const settingsDialogVisible = ref(false)
+import { settingsDialogVisible } from '@/store'
 </script>
 
 <template>

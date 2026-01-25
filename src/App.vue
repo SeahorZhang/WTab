@@ -4,34 +4,32 @@ import Background from '@/components/Background.vue'
 import DateView from '@/components/DateView.vue'
 import Header from '@/components/Header.vue'
 import Contextmenu from '@/components/Contextmenu.vue'
+import { contextmenuData } from '@/store'
+import type { ContextmenuTs } from '@/types'
 
-const contextmenuType = ref()
-const popperVisible = ref(false)
-const clientX = ref(0)
-const clientY = ref(0)
-function onContextmenu(ev: MouseEvent, type = 'desktop') {
-  contextmenuType.value = type
-  clientX.value = ev.clientX
-  clientY.value = ev.clientY
-  popperVisible.value = true
+function handleContextmenu(ev: MouseEvent, type: ContextmenuTs['type'] = 'desktop') {
+  contextmenuData.value.type = type
+  contextmenuData.value.x = ev.clientX
+  contextmenuData.value.y = ev.clientY
+  contextmenuData.value.visible = true
 }
 </script>
 
 <template>
   <div
     class="flex h-full flex-col overflow-hidden select-none"
-    @contextmenu.prevent="onContextmenu"
+    @contextmenu.prevent="handleContextmenu"
   >
     <Background />
     <Header />
     <DateView />
-    <Main />
+    <Main :contextmenu="handleContextmenu" />
 
     <Contextmenu
-      v-model="popperVisible"
-      :client-x="clientX"
-      :client-y="clientY"
-      :contextmenu-type="contextmenuType"
+      v-model="contextmenuData.visible"
+      :client-x="contextmenuData.x"
+      :client-y="contextmenuData.y"
+      :contextmenu-type="contextmenuData.type"
     />
   </div>
 </template>

@@ -2,7 +2,18 @@
 import { saveLayout } from '@/store/index'
 import WidgetsContainer from '@/components/WidgetsContainer.vue'
 import { VueDraggable } from 'vue-draggable-plus'
-import { layout, layoutConfig } from '@/store'
+import { layout, layoutConfig, editWidget } from '@/store'
+import type { Widget } from '@/config'
+import type { ContextmenuTs } from '@/types'
+
+const props = defineProps<{
+  contextmenu: (ev: MouseEvent, type: ContextmenuTs['type']) => void
+}>()
+
+function handleContextmenu(ev: MouseEvent, item: Widget) {
+  editWidget.value = item
+  props.contextmenu(ev, 'widget')
+}
 </script>
 
 <template>
@@ -24,6 +35,7 @@ import { layout, layoutConfig } from '@/store'
       :icon="item.icon"
       :baseSize="layoutConfig.baseSize"
       :baseMargin="layoutConfig.baseMargin"
+      @contextmenu.prevent.stop="handleContextmenu($event, item)"
     >
     </WidgetsContainer>
   </VueDraggable>

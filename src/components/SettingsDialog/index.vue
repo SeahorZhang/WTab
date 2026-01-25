@@ -28,7 +28,7 @@ const currentPage = shallowRef(menus[0] || { title: '关于', type: 'about', com
         </div>
       </div>
       <div class="flex flex-1 basis-5/7 flex-col overflow-hidden">
-        <div class="flex h-14 shrink-0 items-center justify-between px-3 pr-2 pl-6">
+        <div class="flex h-14 shrink-0 items-center justify-between pr-2 pl-6">
           <h3 class="text-lg leading-6 font-medium text-gray-900">
             {{ currentPage.title }}
           </h3>

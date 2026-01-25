@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { pageType, delLayout, editWidget } from '@/store'
+import {
+  pageType,
+  delLayout,
+  editWidget,
+  settingsDialogVisible,
+  addIconDialogVisible,
+} from '@/store'
 import { motion } from 'motion-v'
 import { useFloating, flip, shift, autoUpdate } from '@floating-ui/vue'
 import type { ContextmenuItems } from '@/types'
+import AddIcon from '@/components/AddIcon.vue'
 
 const props = defineProps<{
   contextmenuType: 'desktop' | 'settings' | 'widget'
@@ -13,11 +20,6 @@ const props = defineProps<{
 const emit = defineEmits(['edit', 'close', 'addWidget'])
 const modelValue = defineModel<boolean>({ default: false })
 
-/* ---------------------------
- * floating-ui (idiomatic)
- * -------------------------- */
-
-// 虚拟参考点（右键坐标）
 const virtualReference = {
   getBoundingClientRect: () => ({
     width: 0,
@@ -63,28 +65,42 @@ onClickOutside(floating, () => {
   modelValue.value = false
 })
 
+const handleAbout = () => {
+  settingsDialogVisible.value = true
+  pageType.value = 'about'
+}
+
+const handleAddIcon = () => {
+  addIconDialogVisible.value = true
+  pageType.value = 'addIcons'
+}
+
 const model: ContextmenuItems = {
   desktop: [
     [
-      { label: '添加图标', command: () => (pageType.value = 'addIcons') },
+      { label: '添加图标', command: handleAddIcon },
       { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
+    [{ label: '关于', command: handleAbout }],
   ],
   settings: [
     [
+      { label: '添加图标', command: handleAddIcon },
       { label: '常规设置', command: () => (pageType.value = 'settings') },
-      { label: '添加图标', command: () => (pageType.value = 'addIcons') },
     ],
-    [{ label: '关于', command: () => (pageType.value = 'about') }],
+    [{ label: '关于', command: handleAbout }],
   ],
   widget: [
-    [{ label: '添加图标', command: () => (pageType.value = 'addIcons') }],
+    [
+      { label: '添加图标', command: handleAddIcon },
+      { label: '常规设置', command: () => (pageType.value = 'settings') },
+    ],
     [
       { label: '编辑此图标', command: () => (pageType.value = 'editIcons') },
       {
         label: '删除此图标',
         command: () => delLayout(editWidget.value.id),
-        class: 'text-red-500 hover:bg-red-500 hover:text-white',
+        class: 'text-red-500 hover:bg-red-400 hover:text-white',
       },
     ],
   ],
@@ -112,7 +128,7 @@ const model: ContextmenuItems = {
         <div
           v-for="(item, j) in menuList"
           :key="j"
-          class="hover:bg-primary-500 flex cursor-pointer items-center rounded-md px-2 py-1.5 transition-colors hover:text-white"
+          class="flex cursor-pointer items-center rounded-md px-2 py-1.5 transition-colors hover:bg-primary-500 hover:text-white"
           :class="item.class"
           @click="handleClick(item)"
         >
@@ -121,4 +137,6 @@ const model: ContextmenuItems = {
       </li>
     </motion.ul>
   </Teleport>
+
+  <AddIcon v-model="addIconDialogVisible" />
 </template>

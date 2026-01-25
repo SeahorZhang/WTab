@@ -1,15 +1,25 @@
 import { baseLayout, layoutConfig as _layoutConfig, type Widget, appConfig } from '../config'
+import type { ContextmenuTs } from '@/types'
 
 export const layout = ref()
 export const layoutConfig = ref(_layoutConfig)
 export const config = ref(appConfig)
 export const pageType = ref('')
+export const settingsDialogVisible = ref(false)
+export const addIconDialogVisible = ref(false)
 
 export const editWidget = ref<Widget>({
   id: '',
   icon: '',
   name: '',
   url: '',
+})
+
+export const contextmenuData = ref<ContextmenuTs>({
+  type: 'desktop',
+  visible: false,
+  x: 0,
+  y: 0
 })
 
 
