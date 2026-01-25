@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary-200: oklch(90.1% 0.076 70.697);
+}
+
+
+html {
+  @apply bg-gray-200 text-base;
+}
+
+* {
+  @apply box-content;
+}

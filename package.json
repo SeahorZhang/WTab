@@ -1,5 +1,5 @@
 {
-  "name": "we-tab",
+  "name": "w-tab",
   "type": "module",
   "version": "1.0.0",
   "private": true,
@@ -19,34 +19,38 @@
     "icon": "node macAppIconFetcher/index.js"
   },
   "dependencies": {
+    "@dnd-kit/dom": "^0.2.3",
     "@iconify/vue": "^5.0.0",
     "@tailwindcss/vite": "^4.1.18",
     "@vueuse/core": "^14.1.0",
+    "dayjs": "^1.11.19",
+    "dayjs-plugin-lunar": "^1.4.1",
     "motion-v": "^1.7.5",
     "tailwindcss": "^4.1.18",
-    "vue": "3.5.26",
+    "vue": "3.5.27",
+    "vue-draggable-plus": "^0.6.1",
     "vue-router": "4.6.4"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.3",
-    "@types/node": "^24.10.4",
+    "@types/node": "^25.0.10",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.2",
-    "eslint-plugin-oxlint": "~1.35.0",
-    "eslint-plugin-vue": "~10.6.2",
+    "eslint-plugin-oxlint": "~1.41.0",
+    "eslint-plugin-vue": "~10.7.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
-    "oxlint": "~1.35.0",
-    "prettier": "3.7.4",
-    "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@latest",
-    "vite-plugin-vue-devtools": "^8.0.5",
-    "vue-tsc": "^3.2.1",
+    "oxlint": "~1.41.0",
+    "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "unplugin-auto-import": "^20.3.0",
-    "unplugin-info": "^1.2.4"
+    "typescript": "~5.9.3",
+    "unplugin-auto-import": "^21.0.0",
+    "unplugin-info": "^1.2.4",
+    "vite": "v8.0.0-beta.10",
+    "vite-plugin-vue-devtools": "^8.0.5",
+    "vue-tsc": "^3.2.1"
   }
 }

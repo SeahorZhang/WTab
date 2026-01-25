@@ -1,10 +1,15 @@
-<script setup>
-import Background from '@/components/background/index.vue'
+<script setup lang="ts">
+import Main from '@/components/Main.vue'
+import Background from '@/components/Background.vue'
+import DateView from '@/components/DateView.vue'
+import Header from '@/components/Header.vue'
 </script>
 
 <template>
   <Background />
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <Header />
+  <DateView />
+  <Main />
 </template>
 
 <style scoped></style>
