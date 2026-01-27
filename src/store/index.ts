@@ -1,10 +1,10 @@
 import { baseLayout, layoutConfig as _layoutConfig, type Widget, appConfig } from '../config'
-import type { ContextmenuTs } from '@/types'
+import type { ContextmenuTs, pageTypeTs } from '@/types'
 
 export const layout = ref()
 export const layoutConfig = ref(_layoutConfig)
 export const config = ref(appConfig)
-export const pageType = ref('')
+export const pageType = ref<pageTypeTs | null>(null)
 export const settingsDialogVisible = ref(false)
 export const addIconDialogVisible = ref(false)
 
@@ -35,7 +35,7 @@ const saveToStorage = useDebounceFn((key: string, data) => {
 /**
  * 保存整个布局
  */
-export function saveLayout(icons: Widget) {
+export function saveLayout(icons: Widget[]) {
   layout.value = icons
   saveToStorage(LS_KEYS.LAYOUT, icons)
 }
@@ -59,4 +59,21 @@ export function initLayout() {
  */
 export function delLayout(id: string) {
   saveLayout(layout.value.filter((item: Widget) => item.id !== id))
+}
+
+/**
+ * 添加新小部件
+ */
+export function addLayout(widget: Widget) {
+  const newLayout: Widget[] = [...layout.value, widget]
+  saveLayout(newLayout)
+}
+
+/**
+ * 更新小部件
+ */
+export function updateLayout(widget: Widget) {
+  const index = layout.value.findIndex((item: Widget) => item.id === widget.id)
+  layout.value[index] = widget
+  saveLayout(layout.value)
 }

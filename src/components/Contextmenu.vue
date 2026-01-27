@@ -6,9 +6,9 @@ import {
   settingsDialogVisible,
   addIconDialogVisible,
 } from '@/store'
-import { motion } from 'motion-v'
+import { motion, AnimatePresence } from 'motion-v'
 import { useFloating, flip, shift, autoUpdate } from '@floating-ui/vue'
-import type { ContextmenuItems } from '@/types'
+import type { ContextmenuItems, pageTypeTs } from '@/types'
 import AddIcon from '@/components/AddIcon.vue'
 
 const props = defineProps<{
@@ -70,33 +70,33 @@ const handleAbout = () => {
   pageType.value = 'about'
 }
 
-const handleAddIcon = () => {
+const handleAddOrEditIcon = (type: pageTypeTs) => {
   addIconDialogVisible.value = true
-  pageType.value = 'addIcons'
+  pageType.value = type
 }
 
 const model: ContextmenuItems = {
   desktop: [
     [
-      { label: '添加图标', command: handleAddIcon },
-      { label: '常规设置', command: () => (pageType.value = 'settings') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
     [{ label: '关于', command: handleAbout }],
   ],
   settings: [
     [
-      { label: '添加图标', command: handleAddIcon },
-      { label: '常规设置', command: () => (pageType.value = 'settings') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
     [{ label: '关于', command: handleAbout }],
   ],
   widget: [
     [
-      { label: '添加图标', command: handleAddIcon },
-      { label: '常规设置', command: () => (pageType.value = 'settings') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
     [
-      { label: '编辑此图标', command: () => (pageType.value = 'editIcons') },
+      { label: '编辑此图标', command: () => handleAddOrEditIcon('editIcons') },
       {
         label: '删除此图标',
         command: () => delLayout(editWidget.value.id),
@@ -109,33 +109,35 @@ const model: ContextmenuItems = {
 
 <template>
   <Teleport to="body">
-    <motion.ul
-      v-if="modelValue"
-      ref="floating"
-      :initial="{ opacity: 0, scale: 0.4 }"
-      :animate="{ opacity: 1, scale: 1 }"
-      :exit="{ opacity: 0, scale: 0.4 }"
-      :transition="{ duration: 0.3, type: 'spring' }"
-      :style="{
-        position: strategy,
-        left: x != null ? `${x}px` : undefined,
-        top: y != null ? `${y}px` : undefined,
-      }"
-      @contextmenu.prevent
-      class="z-50 min-w-44 origin-top divide-y divide-gray-200 rounded-md bg-white px-1 py-1 text-sm shadow select-none"
-    >
-      <li v-for="(menuList, i) in model[contextmenuType]" :key="i" class="space-y-0.5 p-1">
-        <div
-          v-for="(item, j) in menuList"
-          :key="j"
-          class="flex cursor-pointer items-center rounded-md px-2 py-1.5 transition-colors hover:bg-primary-500 hover:text-white"
-          :class="item.class"
-          @click="handleClick(item)"
-        >
-          {{ item.label }}
-        </div>
-      </li>
-    </motion.ul>
+    <AnimatePresence>
+      <motion.ul
+        v-if="modelValue"
+        ref="floating"
+        :initial="{ opacity: 0, scale: 0.4 }"
+        :animate="{ opacity: 1, scale: 1 }"
+        :exit="{ opacity: 0, scale: 0.4 }"
+        :transition="{ duration: 0.3, type: 'spring' }"
+        :style="{
+          position: strategy,
+          left: x ? `${x}px` : undefined,
+          top: y ? `${y}px` : undefined,
+        }"
+        @contextmenu.prevent
+        class="z-50 min-w-44 origin-top divide-y divide-gray-200 rounded-md bg-white px-1 py-1 text-sm shadow select-none"
+      >
+        <li v-for="(menuList, i) in model[contextmenuType]" :key="i" class="space-y-0.5 p-1">
+          <div
+            v-for="(item, j) in menuList"
+            :key="j"
+            class="flex cursor-pointer items-center rounded-md px-2 py-1.5 transition-colors hover:bg-primary-500 hover:text-white"
+            :class="item.class"
+            @click="handleClick(item)"
+          >
+            {{ item.label }}
+          </div>
+        </li>
+      </motion.ul>
+    </AnimatePresence>
   </Teleport>
 
   <AddIcon v-model="addIconDialogVisible" />

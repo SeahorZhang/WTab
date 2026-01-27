@@ -6,6 +6,8 @@ import Header from '@/components/Header.vue'
 import Contextmenu from '@/components/Contextmenu.vue'
 import { contextmenuData } from '@/store'
 import type { ContextmenuTs } from '@/types'
+import 'vue-sonner/style.css'
+import { Toaster } from 'vue-sonner'
 
 function handleContextmenu(ev: MouseEvent, type: ContextmenuTs['type'] = 'desktop') {
   contextmenuData.value.type = type
@@ -31,5 +33,6 @@ function handleContextmenu(ev: MouseEvent, type: ContextmenuTs['type'] = 'deskto
       :client-y="contextmenuData.y"
       :contextmenu-type="contextmenuData.type"
     />
+    <Toaster />
   </div>
 </template>

@@ -9,7 +9,7 @@ const modelValue = defineModel({ default: false })
       :initial="{ opacity: 0 }"
       :animate="{ opacity: 1 }"
       :exit="{ opacity: 0 }"
-      class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xl"
+      class="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-lg"
     >
     </motion.div>
     <motion.div

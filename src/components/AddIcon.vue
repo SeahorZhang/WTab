@@ -1,10 +1,46 @@
 <script setup lang="ts">
 import Dialog from '@/components/Dialog.vue'
+import { nanoid } from 'nanoid/non-secure'
+import { addLayout, updateLayout, editWidget } from '@/store'
+import { toast } from 'vue-sonner'
 
-const formData = ref({
-  url: '',
-  name: '',
-})
+const emit = defineEmits(['update:modelValue'])
+
+// 保存更改
+async function handleAdd() {
+  try {
+    if (editWidget.value.id) {
+      // 更新现有图标
+      updateLayout(editWidget.value)
+      toast.success('修改成功')
+    } else {
+      // 添加新图标
+      editWidget.value.id = nanoid()
+      addLayout(editWidget.value)
+      toast.success('添加成功')
+    }
+    closed()
+  } catch (e) {
+    console.error('保存图标失败:', e)
+    toast.error('保存失败')
+  }
+}
+
+// 重置表单
+function resetForm() {
+  editWidget.value = {
+    id: '',
+    icon: '',
+    name: '',
+    url: '',
+  }
+}
+
+// 关闭对话框
+function closed() {
+  emit('update:modelValue', false)
+  resetForm()
+}
 </script>
 
 <template>
@@ -25,7 +61,7 @@ const formData = ref({
             <input
               type="text"
               id="url"
-              v-model="formData.url"
+              v-model="editWidget.url"
               placeholder="请输入网址"
               class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
             />
@@ -36,8 +72,19 @@ const formData = ref({
             <input
               type="text"
               id="name"
-              v-model="formData.name"
+              v-model="editWidget.name"
               placeholder="请输入标题"
+              class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
+            />
+          </div>
+
+          <div class="flex flex-col">
+            <label for="icon" class="mb-2 block text-sm font-medium">图标地址</label>
+            <input
+              type="text"
+              id="icon"
+              v-model="editWidget.icon"
+              placeholder="请输入图标地址"
               class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
             />
           </div>
@@ -48,11 +95,13 @@ const formData = ref({
         <div class="flex-1"></div>
         <button
           class="h-8 cursor-pointer rounded-md border border-[#d9d9d9] px-3.75 text-sm select-none"
+          @click="$emit('update:modelValue', false)"
         >
-          取 消
+          关 闭
         </button>
         <button
           class="h-8 cursor-pointer rounded-md border border-primary bg-primary px-3.75 text-sm text-white select-none"
+          @click="handleAdd"
         >
           确 定
         </button>

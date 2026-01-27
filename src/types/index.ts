@@ -15,3 +15,5 @@ export interface ContextmenuTs {
   y: number
   visible: boolean
 }
+
+export type pageTypeTs = "addIcons" | "about" | "editIcons"
