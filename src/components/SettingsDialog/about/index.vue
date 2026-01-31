@@ -9,7 +9,7 @@ const baseUrl = import.meta.env.VITE_R2_BASE_URL
 const socialLinks = [
   {
     name: 'GitHub',
-    url: 'https://github.com/SeahorZhang/widgets_desktop',
+    url: 'https://github.com/SeahorZhang/WTab',
     icon: 'tabler-brand-github',
   },
   {
