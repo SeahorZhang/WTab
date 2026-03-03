@@ -19,7 +19,7 @@
     "icon": "node macAppIconFetcher/index.js"
   },
   "dependencies": {
-    "@dnd-kit/dom": "^0.2.3",
+    "@dnd-kit/dom": "^0.3.0",
     "@floating-ui/vue": "^1.1.9",
     "@iconify/vue": "^5.0.0",
     "@tailwindcss/vite": "^4.1.18",
