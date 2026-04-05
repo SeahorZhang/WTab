@@ -6,10 +6,10 @@ import Info from 'unplugin-info/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-function getCache({ name, pattern }) {
+function getCache({ name, pattern, handler = 'StaleWhileRevalidate' }) {
   return {
     urlPattern: pattern,
-    handler: 'CacheFirst',
+    handler,
     options: {
       cacheName: name, // 缓存名称
       expiration: {
@@ -17,7 +17,7 @@ function getCache({ name, pattern }) {
         maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
       },
       cacheableResponse: {
-        statuses: [200], // 只缓存状态码为200的请求
+        statuses: [0, 200], // 支持跨域图片与正常请求
       },
     },
   }
@@ -44,13 +44,16 @@ export default defineConfig(({ mode }) => {
           enabled: true,
         },
         workbox: {
-          globPatterns: ['**/*.{js,css,html,webp,png,svg,ico}'],
+          globPatterns: ['**/*.{js,css,html,webp,png,jpg,jpeg,svg,ico}'],
           cleanupOutdatedCaches: true, // 清理过期缓存
           runtimeCaching: [
-            // 捕获所有其他网络请求
             getCache({
-              pattern: /.*/,
-              name: 'all-requests-cache',
+              pattern: /^https:\/\/raw\.githubusercontent\.com\/.*\.(?:png|jpe?g|webp|svg)$/i,
+              name: 'remote-images-cache',
+            }),
+            getCache({
+              pattern: /\.(?:png|jpe?g|webp|svg)$/i,
+              name: 'local-images-cache',
             }),
           ],
         },

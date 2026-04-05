@@ -52,6 +52,8 @@ onMounted(loadImage)
         @error="handleError"
         class="block size-full"
         draggable="false"
+        loading="lazy"
+        decoding="async"
         :alt="alt"
       />
 

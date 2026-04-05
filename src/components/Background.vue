@@ -6,6 +6,9 @@ import bg from '@/assets/imgs/bg.jpg'
   <img
     :src="bg"
     class="fixed z-[-1] h-full w-full scale-105 object-cover object-center select-none"
+    loading="eager"
+    decoding="async"
+    alt=""
   />
   <div class="fixed z-[-1] h-full w-full bg-black/20" />
 </template>
