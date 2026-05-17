@@ -19,12 +19,12 @@ const currentPage = shallowRef(menus[0] || { title: '关于', type: 'about', com
           v-for="(item, i) in menus"
           :key="i"
           @click="currentPage.type = item.type"
-          :class="{ 'bg-primary-200': currentPage?.type === item.type }"
-          class="flex cursor-pointer items-center rounded-md px-4 py-2 text-sm hover:bg-primary-200"
+          :class="{ 'bg-gray-200': currentPage?.type === item.type }"
+          class="flex cursor-pointer items-center rounded-xl h-10 px-4 hover:bg-gray-200"
         >
           <span>{{ item.title }}</span>
           <div class="flex-1"></div>
-          <Icon icon="tabler:chevron-right" />
+          <Icon icon="tabler:chevron-right" color="gray"/>
         </div>
       </div>
       <div class="flex flex-1 basis-5/7 flex-col overflow-hidden">

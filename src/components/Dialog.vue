@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { motion, AnimatePresence } from 'motion-v'
+const emit = defineEmits(['update:modelValue', 'open', 'close'])
 const modelValue = defineModel({ default: false })
+watch(modelValue,(bl)=>{
+  if(bl){
+    emit('open')
+  } else {
+    emit('close')
+  }
+})
 </script>
 <template>
   <AnimatePresence>

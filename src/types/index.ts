@@ -2,6 +2,7 @@ interface Item {
   label: string
   command: () => void
   class?: string
+  icon?: string
 }
 export interface ContextmenuItems {
   desktop: Item[][]

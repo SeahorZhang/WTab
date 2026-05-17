@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import Dialog from '@/components/Dialog.vue'
 import { nanoid } from 'nanoid/non-secure'
-import { addLayout, updateLayout, editWidget } from '@/store'
+import {  type Widget,  } from '../config'
+import { addLayout, updateLayout, editWidget ,pageType} from '@/store'
 import { toast } from 'vue-sonner'
 
 const emit = defineEmits(['update:modelValue'])
-
+const widgetData= ref<Widget>({
+  id: '',
+  icon: '',
+  name: '',
+  url: '',
+})
 // 保存更改
 async function handleAdd() {
   try {
-    if (editWidget.value.id) {
+    if (pageType.value==='editIcons') {
       // 更新现有图标
-      updateLayout(editWidget.value)
+      updateLayout(widgetData.value)
       toast.success('修改成功')
-    } else {
+    } else if(pageType.value==='addIcons') {
       // 添加新图标
-      editWidget.value.id = nanoid()
-      addLayout(editWidget.value)
+      widgetData.value.id = nanoid()
+      addLayout(widgetData.value)
       toast.success('添加成功')
     }
     closed()
@@ -28,7 +34,7 @@ async function handleAdd() {
 
 // 重置表单
 function resetForm() {
-  editWidget.value = {
+  widgetData.value = {
     id: '',
     icon: '',
     name: '',
@@ -41,14 +47,22 @@ function closed() {
   emit('update:modelValue', false)
   resetForm()
 }
+
+function handleOpen(){
+  if(pageType.value==='editIcons'){
+    widgetData.value = { ...editWidget.value }
+  }else{
+    resetForm()
+  }
+}
 </script>
 
 <template>
-  <Dialog>
+  <Dialog @close="closed" @open="handleOpen">
     <div class="mx-10 flex h-150 w-162 flex-col overflow-hidden rounded-xl bg-white shadow-xl">
       <div class="flex-1">
         <div class="flex h-14 items-center justify-between pr-2 pl-6">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">添加图标</h3>
+          <h3 class="text-lg leading-6 font-medium text-gray-900">{{ widgetData.id ? '编辑图标' : '添加图标' }}</h3>
           <Icon
             class="h-8 cursor-pointer rounded px-3 text-lg text-gray-600 transition hover:bg-gray-100"
             icon="tabler:x"
@@ -61,7 +75,7 @@ function closed() {
             <input
               type="text"
               id="url"
-              v-model="editWidget.url"
+              v-model="widgetData.url"
               placeholder="请输入网址"
               class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
             />
@@ -72,7 +86,7 @@ function closed() {
             <input
               type="text"
               id="name"
-              v-model="editWidget.name"
+              v-model="widgetData.name"
               placeholder="请输入标题"
               class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
             />
@@ -83,7 +97,7 @@ function closed() {
             <input
               type="text"
               id="icon"
-              v-model="editWidget.icon"
+              v-model="widgetData.icon"
               placeholder="请输入图标地址"
               class="rounded-lg border border-white bg-gray-100 px-4 py-2 text-sm outline-none"
             />

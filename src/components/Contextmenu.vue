@@ -78,28 +78,29 @@ const handleAddOrEditIcon = (type: pageTypeTs) => {
 const model: ContextmenuItems = {
   desktop: [
     [
-      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons'), icon: 'tabler:layout-grid-add' },
       // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
-    [{ label: '关于', command: handleAbout }],
+    [{ label: '关于', command: handleAbout, icon: 'tabler:info-circle' }],
   ],
   settings: [
     [
-      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons'), icon: 'tabler:layout-grid-add' },
       // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
-    [{ label: '关于', command: handleAbout }],
+    [{ label: '关于', command: handleAbout, icon: 'tabler:info-circle' }],
   ],
   widget: [
     [
-      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons') },
+      { label: '添加图标', command: () => handleAddOrEditIcon('addIcons'), icon: 'tabler:layout-grid-add' },
       // { label: '常规设置', command: () => (pageType.value = 'settings') },
     ],
     [
-      { label: '编辑此图标', command: () => handleAddOrEditIcon('editIcons') },
+      { label: '编辑此图标', command: () => handleAddOrEditIcon('editIcons'), icon: 'tabler:edit' },
       {
         label: '删除此图标',
         command: () => delLayout(editWidget.value.id),
+        icon: 'tabler:trash',
         class: 'text-red-500 hover:bg-red-400 hover:text-white',
       },
     ],
@@ -123,16 +124,17 @@ const model: ContextmenuItems = {
           top: y ? `${y}px` : undefined,
         }"
         @contextmenu.prevent
-        class="z-50 min-w-44 origin-top divide-y divide-gray-200 rounded-md bg-white px-1 py-1 text-sm shadow select-none"
+        class="p-2 min-w-44 shadow border-gray-200 rounded-xl bg-white select-none z-50 origin-top text-sm"
       >
-        <li v-for="(menuList, i) in model[contextmenuType]" :key="i" class="space-y-0.5 p-1">
+        <li v-for="(menuList, i) in model[contextmenuType]" :key="i" class="space-y-0.5">
           <div
             v-for="(item, j) in menuList"
             :key="j"
-            class="flex cursor-pointer items-center rounded-md px-2 py-1.5 transition-colors hover:bg-primary-500 hover:text-white"
             :class="item.class"
             @click="handleClick(item)"
+            class="h-10 px-3 hover:bg-gray-200 rounded-lg flex items-center transition-colors cursor-pointer"
           >
+          <Icon :icon="item.icon" class="mr-1.5 text-lg"/>
             {{ item.label }}
           </div>
         </li>
