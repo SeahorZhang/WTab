@@ -42,7 +42,7 @@
     "@vue/eslint-config-typescript": "^14.7.0",
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^10.4.0",
-    "eslint-plugin-oxlint": "~1.65.0",
+    "eslint-plugin-oxlint": "~1.66.0",
     "eslint-plugin-vue": "~10.9.1",
     "jiti": "^2.7.0",
     "npm-run-all2": "^8.0.4",
