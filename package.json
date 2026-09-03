@@ -52,7 +52,7 @@
     "typescript": "~6.0.3",
     "unplugin-auto-import": "^21.0.0",
     "unplugin-info": "^1.3.2",
-    "vite": "8.0.13",
+    "vite": "8.2.2",
     "vite-plugin-pwa": "^1.3.0",
     "vite-plugin-vue-devtools": "^8.1.2",
     "vue-tsc": "^3.2.9"
