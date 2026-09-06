@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  @apply bg-gray-200 h-full text-base;
+  cursor: url('@/assets/imgs/cursor.svg') 2 1, auto;
+}
+
 @theme {
   --color-primary-50: #edf5ff;
   --color-primary-100: #d8eaff;

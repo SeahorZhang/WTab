@@ -1,0 +1,5 @@
+allowBuilds:
+  vue-demi: set this to true or false
+minimumReleaseAgeExclude:
+  - eslint-plugin-vue@10.11.0
+  - motion-v@2.4.2
