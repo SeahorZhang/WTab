@@ -47,7 +47,7 @@
     "jiti": "^2.7.0",
     "npm-run-all2": "^9.0.3",
     "oxlint": "~1.81.0",
-    "prettier": "3.9.6",
+    "prettier": "3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "~6.0.3",
     "unplugin-auto-import": "^21.1.0",
